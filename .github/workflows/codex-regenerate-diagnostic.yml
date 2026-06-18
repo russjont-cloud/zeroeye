@@ -2,6 +2,9 @@ name: Codex regenerate diagnostic
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - docs-contributing-bounty-12
 
 permissions:
   contents: write
@@ -39,4 +42,3 @@ jobs:
           short_sha="$(git rev-parse --short HEAD)"
           git commit -m "Add build diagnostics for ${short_sha}"
           git push
-
