@@ -31,14 +31,11 @@ jobs:
           git status --short
           exit 0
 
-      - name: Commit generated diagnostics
+      - name: Push build.py diagnostic commit
         run: |
           set -euo pipefail
-          git add diagnostic/
-          if git diff --cached --quiet; then
-            echo "No diagnostic changes generated"
+          if [ "$(git rev-parse HEAD)" = "$(git rev-parse @{u})" ]; then
+            echo "No diagnostic commit generated"
             exit 1
           fi
-          short_sha="$(git rev-parse --short HEAD)"
-          git commit -m "Add build diagnostics for ${short_sha}"
           git push
